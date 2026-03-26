@@ -29,12 +29,14 @@ export default function ScrambleText({
   holdFrames = 10,
   stepFrames = 3,
 }: ScrambleTextProps) {
-  const [display, setDisplay] = useState<string[]>(() =>
-    text.split("").map((c) => (c === " " ? " " : rand()))
-  );
+  // Server renders real text — crawlers and SSR see the title cleanly
+  const [display, setDisplay] = useState<string[]>(() => text.split(""));
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval>;
+
+    // Scramble immediately on the client before animation starts
+    setDisplay(text.split("").map((c) => (c === " " ? " " : rand())));
 
     const timeoutId = setTimeout(() => {
       let frame = 0;
