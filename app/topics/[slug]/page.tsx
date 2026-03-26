@@ -14,7 +14,7 @@ export async function generateMetadata({
   const topic = topics[slug];
   if (!topic) return {};
   return {
-    title: `${topic.title} — C++ Cheat Sheet`,
+    title: `${topic.title} — C++ Codex`,
     description: topic.subtitle,
   };
 }
