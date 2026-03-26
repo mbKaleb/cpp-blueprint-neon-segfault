@@ -16,7 +16,10 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
 
   return (
     <div className="flex items-center justify-end gap-3 mb-6">
-      <div className="relative flex-1 max-w-sm">
+      <span className="font-mono text-[10px] tracking-[2px] uppercase text-muted opacity-40">
+        20 topics
+      </span>
+      <div className="relative max-w-sm">
         <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-[11px] text-muted opacity-50 pointer-events-none">
           /
         </span>
@@ -25,12 +28,9 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
           value={value}
           onChange={handleChange}
           placeholder="search topics..."
-          className="w-full bg-surface border border-border pl-7 pr-3 h-[34px] font-mono text-[11px] tracking-[1px] text-foreground placeholder:text-muted placeholder:opacity-40 focus:outline-none focus:border-accent transition-colors"
+          className="w-full bg-surface border border-border pl-7 pr-3 h-[34px] w-[280px] font-mono text-[11px] tracking-[1px] text-foreground placeholder:text-muted placeholder:opacity-40 focus:outline-none focus:border-accent transition-colors"
         />
       </div>
-      <span className="font-mono text-[10px] tracking-[2px] uppercase text-muted opacity-40">
-        20 topics
-      </span>
     </div>
   );
 }

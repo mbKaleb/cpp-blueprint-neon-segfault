@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono, Bebas_Neue } from "next/font/google";
+import SearchBar from "@/components/SearchBar";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -34,7 +35,10 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bebasNeue.variable} antialiased`}
     >
       <body className="flex flex-col min-h-screen">
-        <main className="flex-1 px-4 py-6 max-w-[1400px] mx-auto w-full">{children}</main>
+        <main className="flex-1 px-4 py-6 max-w-[1400px] mx-auto w-full">
+          <SearchBar />
+          {children}
+        </main>
         <footer className="text-center py-7 text-[11px] tracking-[2px] uppercase text-muted">
           C++17 · Advanced Reference
         </footer>
