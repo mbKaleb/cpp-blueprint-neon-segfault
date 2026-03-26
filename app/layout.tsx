@@ -35,7 +35,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bebasNeue.variable} antialiased`}
     >
       <body className="flex flex-col min-h-screen">
-        <main className="flex-1 px-4 py-6 max-w-[1400px] mx-auto w-full">
+        <main className="relative flex-1 px-4 py-6 max-w-[1400px] mx-auto w-full">
           <SearchBar />
           {children}
         </main>

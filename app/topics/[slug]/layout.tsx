@@ -17,14 +17,12 @@ export default async function TopicLayout({
 
   return (
     <>
-      <div className="h-[34px] flex items-center mb-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[3px] uppercase text-muted hover:text-accent transition-colors"
-        >
-          ← Back to Cheat Sheet
-        </Link>
-      </div>
+      <Link
+        href="/"
+        className="absolute top-6 left-4 h-[34px] inline-flex items-center gap-2 font-mono text-[11px] tracking-[3px] uppercase text-muted hover:text-accent transition-colors"
+      >
+        ← Back to Cheat Sheet
+      </Link>
 
       <PageHeader
         label={`Topic ${topic.num}`}
