@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Card from "@/components/sheet/Card";
 import CodeBlock from "@/components/sheet/CodeBlock";
 import InfoTable from "@/components/sheet/InfoTable";
@@ -261,6 +262,13 @@ export default function Home() {
           <Tip color="cyan">
             <strong>Tip:</strong> Every C++ program needs a <code>main()</code> function — execution starts there.
           </Tip>
+          <Link
+            href="/topics/program-structure"
+            className="flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — ODR · Linkage · C++17</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 02 Data Types */}
