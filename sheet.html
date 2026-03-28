@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ Cheat Sheet for Beginners</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: #2a2a3e;
+    --accent: #00d4ff;
+    --accent2: #ff6b35;
+    --accent3: #a855f7;
+    --green: #39ff14;
+    --text: #e0e0f0;
+    --muted: #7070a0;
+    --code-bg: #0d0d18;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 24px 16px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 32px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(0,212,255,0.4);
+    line-height: 1;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  .header .badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 14px;
+    border: 1px solid var(--accent3);
+    border-radius: 2px;
+    color: var(--accent3);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .card.wide { grid-column: span 2; }
+  @media (max-width: 740px) { .card.wide { grid-column: span 1; } }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .card-header .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .card-header .num {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* Code block */
+  pre {
+    background: var(--code-bg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    border-bottom: 1px solid var(--border);
+  }
+  pre:last-child { border-bottom: none; }
+
+  /* Syntax highlighting */
+  .kw { color: #569cd6; }         /* keyword */
+  .ty { color: #4ec9b0; }         /* type */
+  .fn { color: #dcdcaa; }         /* function */
+  .st { color: #ce9178; }         /* string */
+  .cm { color: #6a9955; font-style: italic; } /* comment */
+  .nm { color: #b5cea8; }         /* number */
+  .op { color: #d4d4d4; }         /* operator */
+  .pp { color: #c586c0; }         /* preprocessor */
+  .va { color: #9cdcfe; }         /* variable */
+  .ac { color: var(--accent); }   /* accent */
+  .ac2 { color: var(--accent2); } /* accent2 */
+  .ac3 { color: var(--accent3); } /* accent3 */
+
+  /* Info table inside card */
+  .info-table {
+    padding: 0;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .info-table tr { border-bottom: 1px solid var(--border); }
+  .info-table tr:last-child { border-bottom: none; }
+  .info-table td {
+    padding: 8px 14px;
+    vertical-align: top;
+  }
+  .info-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--accent);
+    white-space: nowrap;
+    width: 38%;
+  }
+  .info-table td:last-child {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  /* Section label */
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 6px 14px 4px;
+    opacity: 0.7;
+    display: block;
+  }
+
+  /* Tip box */
+  .tip {
+    padding: 9px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    border-left: 3px solid;
+    margin: 0;
+    background: rgba(255,255,255,0.02);
+  }
+  .tip.cyan { border-color: var(--accent); }
+  .tip.orange { border-color: var(--accent2); }
+  .tip.purple { border-color: var(--accent3); }
+  .tip.green { border-color: var(--green); }
+  .tip strong { color: var(--text); }
+
+  /* Dot colors */
+  .cyan { background: var(--accent); }
+  .orange { background: var(--accent2); }
+  .purple { background: var(--accent3); }
+  .green { background: var(--green); }
+  .red { background: #f87171; }
+  .yellow { background: #fbbf24; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>C++ Cheat Sheet</h1>
+  <p>Quick Reference for Beginners</p>
+  <span class="badge">C++17 · ISO Standard</span>
+</div>
+
+<div class="grid">
+
+  <!-- Program Structure -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot cyan"></span>
+      <h2>Program Structure</h2>
+      <span class="num">01</span>
+    </div>
+    <pre><span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>   <span class="cm">// input/output</span>
+<span class="pp">#include</span> <span class="st">&lt;string&gt;</span>     <span class="cm">// strings</span>
+<span class="pp">#include</span> <span class="st">&lt;vector&gt;</span>     <span class="cm">// dynamic arrays</span>
+
+<span class="kw">using namespace</span> <span class="ty">std</span>;   <span class="cm">// optional convenience</span>
+
+<span class="ty">int</span> <span class="fn">main</span>() {
+  <span class="cm">// your code here</span>
+  <span class="fn">cout</span> &lt;&lt; <span class="st">"Hello, World!\n"</span>;
+  <span class="kw">return</span> <span class="nm">0</span>;   <span class="cm">// 0 = success</span>
+}</pre>
+    <div class="tip cyan"><strong>Tip:</strong> Every C++ program needs a <code>main()</code> function — execution starts there.</div>
+  </div>
+
+  <!-- Data Types -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot orange"></span>
+      <h2>Data Types</h2>
+      <span class="num">02</span>
+    </div>
+    <table class="info-table">
+      <tr><td>int</td><td>Whole numbers · −2B to 2B</td></tr>
+      <tr><td>long long</td><td>Big integers · ±9.2×10¹⁸</td></tr>
+      <tr><td>double</td><td>Decimal numbers (64-bit)</td></tr>
+      <tr><td>float</td><td>Decimal numbers (32-bit)</td></tr>
+      <tr><td>char</td><td>Single character · 'A'</td></tr>
+      <tr><td>string</td><td>Text · "hello"</td></tr>
+      <tr><td>bool</td><td>true / false</td></tr>
+      <tr><td>auto</td><td>Compiler infers the type</td></tr>
+    </table>
+  </div>
+
+  <!-- Variables & Constants -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot purple"></span>
+      <h2>Variables &amp; Constants</h2>
+      <span class="num">03</span>
+    </div>
+    <pre><span class="cm">// Declaration &amp; initialization</span>
+<span class="ty">int</span> <span class="va">age</span> = <span class="nm">25</span>;
+<span class="ty">double</span> <span class="va">pi</span> = <span class="nm">3.14159</span>;
+<span class="ty">string</span> <span class="va">name</span> = <span class="st">"Alice"</span>;
+<span class="ty">bool</span> <span class="va">isReady</span> = <span class="kw">true</span>;
+<span class="ty">auto</span> <span class="va">score</span> = <span class="nm">100</span>;       <span class="cm">// type = int</span>
+
+<span class="cm">// Constants (cannot be changed)</span>
+<span class="kw">const</span> <span class="ty">int</span> <span class="va">MAX</span> = <span class="nm">100</span>;
+<span class="kw">constexpr</span> <span class="ty">double</span> <span class="va">G</span> = <span class="nm">9.81</span>;</pre>
+  </div>
+
+  <!-- Input / Output -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot green"></span>
+      <h2>Input / Output</h2>
+      <span class="num">04</span>
+    </div>
+    <pre><span class="cm">// Output</span>
+<span class="fn">cout</span> &lt;&lt; <span class="st">"Hello"</span>;          <span class="cm">// print</span>
+<span class="fn">cout</span> &lt;&lt; <span class="st">"Hi"</span> &lt;&lt; <span class="ac">endl</span>;   <span class="cm">// newline</span>
+<span class="fn">cout</span> &lt;&lt; <span class="st">"Hi\n"</span>;           <span class="cm">// faster newline</span>
+<span class="fn">cout</span> &lt;&lt; <span class="st">"x = "</span> &lt;&lt; <span class="va">x</span> &lt;&lt; <span class="st">"\n"</span>;
+
+<span class="cm">// Input</span>
+<span class="ty">int</span> <span class="va">n</span>;
+<span class="fn">cin</span> &gt;&gt; <span class="va">n</span>;                <span class="cm">// read one value</span>
+<span class="fn">cin</span> &gt;&gt; <span class="va">a</span> &gt;&gt; <span class="va">b</span>;           <span class="cm">// read two values</span>
+
+<span class="ty">string</span> <span class="va">line</span>;
+<span class="fn">getline</span>(<span class="fn">cin</span>, <span class="va">line</span>);      <span class="cm">// read whole line</span></pre>
+  </div>
+
+  <!-- Operators -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot yellow"></span>
+      <h2>Operators</h2>
+      <span class="num">05</span>
+    </div>
+    <span class="label">Arithmetic</span>
+    <pre><span class="va">a</span> <span class="op">+</span> <span class="va">b</span>   <span class="va">a</span> <span class="op">-</span> <span class="va">b</span>   <span class="va">a</span> <span class="op">*</span> <span class="va">b</span>   <span class="va">a</span> <span class="op">/</span> <span class="va">b</span>   <span class="va">a</span> <span class="op">%</span> <span class="va">b</span>
+<span class="va">a</span><span class="op">++</span>   <span class="va">a</span><span class="op">--</span>   <span class="op">++</span><span class="va">a</span>   <span class="op">--</span><span class="va">a</span>
+<span class="va">a</span> <span class="op">+=</span> <span class="nm">5</span>   <span class="va">a</span> <span class="op">-=</span> <span class="nm">2</span>   <span class="va">a</span> <span class="op">*=</span> <span class="nm">3</span>   <span class="va">a</span> <span class="op">/=</span> <span class="nm">2</span></pre>
+    <span class="label">Comparison &amp; Logical</span>
+    <pre><span class="op">==</span>  <span class="op">!=</span>  <span class="op">&lt;</span>  <span class="op">&gt;</span>  <span class="op">&lt;=</span>  <span class="op">&gt;=</span>          <span class="cm">// comparison</span>
+<span class="op">&amp;&amp;</span>  <span class="op">||</span>  <span class="op">!</span>                       <span class="cm">// AND  OR  NOT</span></pre>
+  </div>
+
+  <!-- If / Else -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot cyan"></span>
+      <h2>If / Else</h2>
+      <span class="num">06</span>
+    </div>
+    <pre><span class="kw">if</span> (<span class="va">x</span> <span class="op">&gt;</span> <span class="nm">0</span>) {
+  <span class="fn">cout</span> &lt;&lt; <span class="st">"positive\n"</span>;
+} <span class="kw">else if</span> (<span class="va">x</span> <span class="op">==</span> <span class="nm">0</span>) {
+  <span class="fn">cout</span> &lt;&lt; <span class="st">"zero\n"</span>;
+} <span class="kw">else</span> {
+  <span class="fn">cout</span> &lt;&lt; <span class="st">"negative\n"</span>;
+}
+
+<span class="cm">// Ternary (shorthand if)</span>
+<span class="ty">string</span> <span class="va">res</span> = (<span class="va">x</span> <span class="op">&gt;</span> <span class="nm">0</span>) <span class="op">?</span> <span class="st">"pos"</span> <span class="op">:</span> <span class="st">"neg"</span>;</pre>
+  </div>
+
+  <!-- Switch -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot orange"></span>
+      <h2>Switch Statement</h2>
+      <span class="num">07</span>
+    </div>
+    <pre><span class="kw">switch</span> (<span class="va">day</span>) {
+  <span class="kw">case</span> <span class="nm">1</span>:
+    <span class="fn">cout</span> &lt;&lt; <span class="st">"Monday"</span>;
+    <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="nm">2</span>:
+    <span class="fn">cout</span> &lt;&lt; <span class="st">"Tuesday"</span>;
+    <span class="kw">break</span>;
+  <span class="kw">default</span>:
+    <span class="fn">cout</span> &lt;&lt; <span class="st">"Other"</span>;
+}</pre>
+    <div class="tip orange"><strong>Note:</strong> Always use <code>break</code> to prevent fall-through to the next case.</div>
+  </div>
+
+  <!-- Loops -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot purple"></span>
+      <h2>Loops</h2>
+      <span class="num">08</span>
+    </div>
+    <span class="label">For Loop</span>
+    <pre><span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="nm">5</span>; <span class="va">i</span><span class="op">++</span>) {
+  <span class="fn">cout</span> &lt;&lt; <span class="va">i</span> &lt;&lt; <span class="st">" "</span>;   <span class="cm">// 0 1 2 3 4</span>
+}</pre>
+    <span class="label">While Loop</span>
+    <pre><span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>;
+<span class="kw">while</span> (<span class="va">i</span> <span class="op">&lt;</span> <span class="nm">5</span>) { <span class="fn">cout</span> &lt;&lt; <span class="va">i</span><span class="op">++</span>; }</pre>
+    <span class="label">Range-based For (C++11)</span>
+    <pre><span class="ty">vector</span><span class="op">&lt;</span><span class="ty">int</span><span class="op">&gt;</span> <span class="va">v</span> = {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>};
+<span class="kw">for</span> (<span class="ty">int</span> <span class="va">x</span> : <span class="va">v</span>) { <span class="fn">cout</span> &lt;&lt; <span class="va">x</span>; }
+<span class="kw">for</span> (<span class="kw">auto</span> <span class="va">x</span> : <span class="va">v</span>) { <span class="fn">cout</span> &lt;&lt; <span class="va">x</span>; }</pre>
+  </div>
+
+  <!-- Functions -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot green"></span>
+      <h2>Functions</h2>
+      <span class="num">09</span>
+    </div>
+    <pre><span class="cm">// Declaration (prototype)</span>
+<span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>);
+
+<span class="cm">// Definition</span>
+<span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>) {
+  <span class="kw">return</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>;
+}
+
+<span class="cm">// Void (no return)</span>
+<span class="ty">void</span> <span class="fn">greet</span>(<span class="ty">string</span> <span class="va">name</span>) {
+  <span class="fn">cout</span> &lt;&lt; <span class="st">"Hi "</span> &lt;&lt; <span class="va">name</span> &lt;&lt; <span class="st">"\n"</span>;
+}
+
+<span class="cm">// Default parameter</span>
+<span class="ty">void</span> <span class="fn">greet</span>(<span class="ty">string</span> <span class="va">name</span> = <span class="st">"World"</span>) { }
+
+<span class="cm">// Call</span>
+<span class="ty">int</span> <span class="va">result</span> = <span class="fn">add</span>(<span class="nm">3</span>, <span class="nm">4</span>);   <span class="cm">// result = 7</span></pre>
+  </div>
+
+  <!-- Arrays -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot red"></span>
+      <h2>Arrays</h2>
+      <span class="num">10</span>
+    </div>
+    <span class="label">Static Array</span>
+    <pre><span class="ty">int</span> <span class="va">arr</span>[<span class="nm">5</span>] = {<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>, <span class="nm">40</span>, <span class="nm">50</span>};
+<span class="va">arr</span>[<span class="nm">0</span>];             <span class="cm">// 10 (index from 0)</span>
+<span class="va">arr</span>[<span class="nm">2</span>] = <span class="nm">99</span>;         <span class="cm">// modify element</span></pre>
+    <span class="label">2D Array</span>
+    <pre><span class="ty">int</span> <span class="va">grid</span>[<span class="nm">3</span>][<span class="nm">3</span>] = {{<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>},{<span class="nm">4</span>,<span class="nm">5</span>,<span class="nm">6</span>},{<span class="nm">7</span>,<span class="nm">8</span>,<span class="nm">9</span>}};
+<span class="va">grid</span>[<span class="nm">1</span>][<span class="nm">2</span>];          <span class="cm">// 6 (row 1, col 2)</span></pre>
+    <div class="tip red" style="border-color:#f87171;"><strong>Warning:</strong> No bounds checking — accessing out-of-range is undefined behavior.</div>
+  </div>
+
+  <!-- Vector -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot cyan"></span>
+      <h2>Vector (Dynamic Array)</h2>
+      <span class="num">11</span>
+    </div>
+    <pre><span class="pp">#include</span> <span class="st">&lt;vector&gt;</span>
+
+<span class="ty">vector</span><span class="op">&lt;</span><span class="ty">int</span><span class="op">&gt;</span> <span class="va">v</span> = {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>};
+<span class="va">v</span>.<span class="fn">push_back</span>(<span class="nm">4</span>);      <span class="cm">// add to end</span>
+<span class="va">v</span>.<span class="fn">pop_back</span>();        <span class="cm">// remove last</span>
+<span class="va">v</span>.<span class="fn">size</span>();            <span class="cm">// number of elements</span>
+<span class="va">v</span>.<span class="fn">empty</span>();           <span class="cm">// is it empty?</span>
+<span class="va">v</span>.<span class="fn">clear</span>();           <span class="cm">// remove all</span>
+<span class="va">v</span>[<span class="nm">0</span>];               <span class="cm">// access element</span>
+<span class="va">v</span>.<span class="fn">front</span>();  <span class="va">v</span>.<span class="fn">back</span>(); <span class="cm">// first / last</span></pre>
+  </div>
+
+  <!-- Strings -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot orange"></span>
+      <h2>Strings</h2>
+      <span class="num">12</span>
+    </div>
+    <pre><span class="pp">#include</span> <span class="st">&lt;string&gt;</span>
+
+<span class="ty">string</span> <span class="va">s</span> = <span class="st">"Hello"</span>;
+<span class="va">s</span>.<span class="fn">length</span>();          <span class="cm">// 5</span>
+<span class="va">s</span>.<span class="fn">size</span>();            <span class="cm">// same as length()</span>
+<span class="va">s</span>[<span class="nm">0</span>];               <span class="cm">// 'H'</span>
+<span class="va">s</span> <span class="op">+</span> <span class="st">" World"</span>;        <span class="cm">// concatenate</span>
+<span class="va">s</span>.<span class="fn">substr</span>(<span class="nm">1</span>, <span class="nm">3</span>);     <span class="cm">// "ell" (pos, len)</span>
+<span class="va">s</span>.<span class="fn">find</span>(<span class="st">"ll"</span>);       <span class="cm">// index of "ll" → 2</span>
+<span class="va">s</span>.<span class="fn">replace</span>(<span class="nm">0</span>,<span class="nm">1</span>,<span class="st">"J"</span>); <span class="cm">// "Jello"</span>
+<span class="fn">stoi</span>(<span class="st">"42"</span>);         <span class="cm">// string → int</span>
+<span class="fn">to_string</span>(<span class="nm">42</span>);      <span class="cm">// int → string</span></pre>
+  </div>
+
+  <!-- Pointers -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot purple"></span>
+      <h2>Pointers &amp; References</h2>
+      <span class="num">13</span>
+    </div>
+    <span class="label">Pointers</span>
+    <pre><span class="ty">int</span> <span class="va">x</span> = <span class="nm">10</span>;
+<span class="ty">int</span><span class="op">*</span> <span class="va">ptr</span> = <span class="op">&amp;</span><span class="va">x</span>;   <span class="cm">// ptr holds address of x</span>
+<span class="op">*</span><span class="va">ptr</span>;            <span class="cm">// 10 (dereference)</span>
+<span class="op">*</span><span class="va">ptr</span> = <span class="nm">20</span>;      <span class="cm">// changes x to 20</span></pre>
+    <span class="label">References (aliases)</span>
+    <pre><span class="ty">int</span><span class="op">&amp;</span> <span class="va">ref</span> = <span class="va">x</span>;   <span class="cm">// ref IS x (no copy)</span>
+<span class="va">ref</span> = <span class="nm">99</span>;        <span class="cm">// x is now 99</span>
+
+<span class="cm">// Pass by reference (efficient)</span>
+<span class="ty">void</span> <span class="fn">double_it</span>(<span class="ty">int</span><span class="op">&amp;</span> <span class="va">n</span>) { <span class="va">n</span> <span class="op">*=</span> <span class="nm">2</span>; }</pre>
+  </div>
+
+  <!-- Structs -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot green"></span>
+      <h2>Structs</h2>
+      <span class="num">14</span>
+    </div>
+    <pre><span class="kw">struct</span> <span class="ty">Person</span> {
+  <span class="ty">string</span> <span class="va">name</span>;
+  <span class="ty">int</span> <span class="va">age</span>;
+};
+
+<span class="ty">Person</span> <span class="va">p1</span> = {<span class="st">"Alice"</span>, <span class="nm">30</span>};
+<span class="ty">Person</span> <span class="va">p2</span>;
+<span class="va">p2</span>.<span class="va">name</span> = <span class="st">"Bob"</span>;
+<span class="va">p2</span>.<span class="va">age</span>  = <span class="nm">25</span>;
+
+<span class="fn">cout</span> &lt;&lt; <span class="va">p1</span>.<span class="va">name</span>;   <span class="cm">// Alice</span></pre>
+  </div>
+
+  <!-- Classes -->
+  <div class="card wide">
+    <div class="card-header">
+      <span class="dot cyan"></span>
+      <h2>Classes (OOP Basics)</h2>
+      <span class="num">15</span>
+    </div>
+    <pre><span class="kw">class</span> <span class="ty">Dog</span> {
+<span class="kw">public</span>:                          <span class="cm">// accessible anywhere</span>
+  <span class="ty">string</span> <span class="va">name</span>;
+  <span class="ty">int</span> <span class="va">age</span>;
+
+  <span class="fn">Dog</span>(<span class="ty">string</span> <span class="va">n</span>, <span class="ty">int</span> <span class="va">a</span>) : <span class="va">name</span>(<span class="va">n</span>), <span class="va">age</span>(<span class="va">a</span>) {}   <span class="cm">// constructor</span>
+
+  <span class="ty">void</span> <span class="fn">bark</span>() {
+    <span class="fn">cout</span> &lt;&lt; <span class="va">name</span> &lt;&lt; <span class="st">" says: Woof!\n"</span>;
+  }
+
+<span class="kw">private</span>:                         <span class="cm">// accessible only inside class</span>
+  <span class="ty">int</span> <span class="va">secret</span> = <span class="nm">42</span>;
+};
+
+<span class="ty">Dog</span> <span class="va">d</span>(<span class="st">"Rex"</span>, <span class="nm">3</span>);     <span class="cm">// create object</span>
+<span class="va">d</span>.<span class="fn">bark</span>();            <span class="cm">// Rex says: Woof!</span>
+<span class="fn">cout</span> &lt;&lt; <span class="va">d</span>.<span class="va">name</span>;     <span class="cm">// Rex</span></pre>
+  </div>
+
+  <!-- Common Algorithms -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot orange"></span>
+      <h2>Useful Algorithms</h2>
+      <span class="num">16</span>
+    </div>
+    <pre><span class="pp">#include</span> <span class="st">&lt;algorithm&gt;</span>
+
+<span class="ty">vector</span><span class="op">&lt;</span><span class="ty">int</span><span class="op">&gt;</span> <span class="va">v</span> = {<span class="nm">3</span>,<span class="nm">1</span>,<span class="nm">4</span>,<span class="nm">1</span>,<span class="nm">5</span>};
+
+<span class="fn">sort</span>(<span class="va">v</span>.<span class="fn">begin</span>(), <span class="va">v</span>.<span class="fn">end</span>());   <span class="cm">// ascending</span>
+<span class="cm">// v = {1,1,3,4,5}</span>
+
+<span class="fn">reverse</span>(<span class="va">v</span>.<span class="fn">begin</span>(), <span class="va">v</span>.<span class="fn">end</span>());
+
+<span class="fn">min</span>(<span class="nm">3</span>, <span class="nm">7</span>);   <span class="fn">max</span>(<span class="nm">3</span>, <span class="nm">7</span>);
+
+<span class="kw">auto</span> <span class="va">it</span> = <span class="fn">find</span>(<span class="va">v</span>.<span class="fn">begin</span>(), <span class="va">v</span>.<span class="fn">end</span>(), <span class="nm">4</span>);
+<span class="cm">// it points to 4, or v.end() if not found</span></pre>
+  </div>
+
+  <!-- Math -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot yellow"></span>
+      <h2>Math Functions</h2>
+      <span class="num">17</span>
+    </div>
+    <pre><span class="pp">#include</span> <span class="st">&lt;cmath&gt;</span>
+
+<span class="fn">sqrt</span>(<span class="nm">16.0</span>);    <span class="cm">// 4.0</span>
+<span class="fn">pow</span>(<span class="nm">2</span>, <span class="nm">10</span>);    <span class="cm">// 1024.0</span>
+<span class="fn">abs</span>(<span class="op">-</span><span class="nm">5</span>);       <span class="cm">// 5</span>
+<span class="fn">floor</span>(<span class="nm">3.9</span>);   <span class="cm">// 3.0</span>
+<span class="fn">ceil</span>(<span class="nm">3.1</span>);    <span class="cm">// 4.0</span>
+<span class="fn">round</span>(<span class="nm">3.5</span>);   <span class="cm">// 4.0</span>
+<span class="fn">log</span>(<span class="nm">2.718</span>);   <span class="cm">// ~1.0 (natural log)</span>
+<span class="fn">log10</span>(<span class="nm">100</span>);   <span class="cm">// 2.0</span></pre>
+  </div>
+
+  <!-- Common Pitfalls -->
+  <div class="card wide">
+    <div class="card-header">
+      <span class="dot red"></span>
+      <h2>Common Beginner Mistakes</h2>
+      <span class="num">18</span>
+    </div>
+    <table class="info-table">
+      <tr>
+        <td>= vs ==</td>
+        <td>Use <code>==</code> to compare. <code>=</code> assigns a value (if (x = 5) is always true!)</td>
+      </tr>
+      <tr>
+        <td>Integer division</td>
+        <td><code>5 / 2 == 2</code> not 2.5. Cast to double: <code>(double)5 / 2</code></td>
+      </tr>
+      <tr>
+        <td>Array out of bounds</td>
+        <td>Accessing index ≥ size causes undefined behavior — no automatic error.</td>
+      </tr>
+      <tr>
+        <td>Missing break</td>
+        <td>In switch statements, forgetting <code>break</code> causes fall-through to next case.</td>
+      </tr>
+      <tr>
+        <td>Uninitialized vars</td>
+        <td>Local variables contain garbage — always initialize before use.</td>
+      </tr>
+      <tr>
+        <td>endl vs \n</td>
+        <td><code>\n</code> is faster — <code>endl</code> flushes the buffer every call.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Compile & Run -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot green"></span>
+      <h2>Compile &amp; Run</h2>
+      <span class="num">19</span>
+    </div>
+    <span class="label">g++ (most common)</span>
+    <pre><span class="cm"># Compile</span>
+g++ <span class="va">main</span>.cpp <span class="op">-o</span> <span class="va">myprogram</span>
+
+<span class="cm"># Compile with C++17 + warnings</span>
+g++ <span class="op">-std=</span>c++17 <span class="op">-Wall</span> <span class="va">main</span>.cpp <span class="op">-o</span> <span class="va">prog</span>
+
+<span class="cm"># Run (Linux/Mac)</span>
+./<span class="va">myprogram</span>
+
+<span class="cm"># Run (Windows)</span>
+<span class="va">myprogram</span>.exe</pre>
+  </div>
+
+  <!-- Memory Quick Ref -->
+  <div class="card">
+    <div class="card-header">
+      <span class="dot purple"></span>
+      <h2>Dynamic Memory</h2>
+      <span class="num">20</span>
+    </div>
+    <pre><span class="cm">// Allocate on heap</span>
+<span class="ty">int</span><span class="op">*</span> <span class="va">p</span> = <span class="kw">new</span> <span class="ty">int</span>(<span class="nm">42</span>);
+<span class="op">*</span><span class="va">p</span>;             <span class="cm">// 42</span>
+<span class="kw">delete</span> <span class="va">p</span>;       <span class="cm">// free memory!</span>
+<span class="va">p</span> = <span class="kw">nullptr</span>;    <span class="cm">// good practice</span>
+
+<span class="cm">// Array on heap</span>
+<span class="ty">int</span><span class="op">*</span> <span class="va">arr</span> = <span class="kw">new</span> <span class="ty">int</span>[<span class="nm">5</span>];
+<span class="kw">delete</span>[] <span class="va">arr</span>;   <span class="cm">// use delete[]</span></pre>
+    <div class="tip purple"><strong>Prefer</strong> <code>vector</code> or smart pointers (<code>unique_ptr</code>) over raw <code>new/delete</code> to avoid memory leaks.</div>
+  </div>
+
+</div>
+
+<div style="text-align:center;padding:28px 16px 16px;color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;">
+  C++ Cheat Sheet · Beginner Reference · C++17
+</div>
+
+</body>
+</html>
