@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScrambleText from "@/components/ScrambleText";
 import Card from "@/components/sheet/Card";
 import CodeBlock from "@/components/sheet/CodeBlock";
 import InfoTable from "@/components/sheet/InfoTable";
@@ -386,7 +387,7 @@ export default function ProgramStructurePage() {
           Topic 01
         </span>
         <h1 className="font-heading text-[clamp(2rem,5vw,3.5rem)] tracking-[4px] text-accent leading-none [text-shadow:0_0_30px_rgba(0,212,255,0.4)]">
-          Program Structure
+          <ScrambleText text="Program Structure" />
         </h1>
         <p className="text-muted text-[13px] mt-2 tracking-[3px] uppercase font-light">
           Translation Units · Linkage · ODR · C++17 Features
