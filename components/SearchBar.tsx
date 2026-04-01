@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
@@ -8,6 +8,20 @@ interface SearchBarProps {
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const [value, setValue] = useState("");
+  const [readerMode, setReaderMode] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("reader") === "1";
+    setReaderMode(saved);
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("reader-mode", readerMode);
+    document.body.classList.add("reader-transitioning");
+    const t = setTimeout(() => document.body.classList.remove("reader-transitioning"), 400);
+    localStorage.setItem("reader", readerMode ? "1" : "0");
+    return () => clearTimeout(t);
+  }, [readerMode]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -19,6 +33,19 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
       <span className="font-mono text-[10px] tracking-[2px] uppercase text-muted opacity-40">
         20 topics
       </span>
+
+      {/* <button
+        onClick={() => setReaderMode(r => !r)}
+        title={readerMode ? "Exit reader mode" : "Reader mode"}
+        className={`h-[34px] px-3 border font-mono text-[10px] tracking-[2px] uppercase transition-colors ${
+          readerMode
+            ? "border-accent text-accent bg-accent/10"
+            : "border-border text-muted hover:border-accent hover:text-accent"
+        }`}
+      >
+        {readerMode ? "■ reader" : "□ reader"}
+      </button> */}
+
       <div className="relative max-w-sm">
         <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono text-[11px] text-muted opacity-50 pointer-events-none">
           /

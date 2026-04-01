@@ -83,3 +83,16 @@ pre {
   scrollbar-width: thin;
   scrollbar-color: rgba(0,212,255,.25) var(--code-bg);
 }
+
+/* Reader mode — narrows the layout for easier reading */
+main {
+  transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.reader-mode main {
+  max-width: 900px !important;
+}
+
+body.reader-transitioning pre {
+  overflow-x: clip;
+}
