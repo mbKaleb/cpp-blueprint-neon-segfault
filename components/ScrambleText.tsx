@@ -33,6 +33,11 @@ export default function ScrambleText({
   const [display, setDisplay] = useState<string[]>(() => text.split(""));
 
   useEffect(() => {
+    const STORAGE_KEY = `scramble_played:${window.location.pathname}`;
+
+    // Only play once — skip animation if already seen
+    if (localStorage.getItem(STORAGE_KEY)) return;
+
     let intervalId: ReturnType<typeof setInterval>;
 
     // Scramble immediately on the client before animation starts
@@ -53,7 +58,10 @@ export default function ScrambleText({
           })
         );
 
-        if (frame >= total) clearInterval(intervalId);
+        if (frame >= total) {
+          clearInterval(intervalId);
+          localStorage.setItem(STORAGE_KEY, "1");
+        }
       }, fps);
     }, delay);
 
