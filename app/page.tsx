@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SearchBar from "@/components/SearchBar";
 import Card from "@/components/sheet/Card";
 import CodeBlock from "@/components/sheet/CodeBlock";
 import InfoTable from "@/components/sheet/InfoTable";
@@ -252,9 +253,10 @@ delete[] arr;   // use delete[]`;
 export default function Home() {
   return (
     <>
+      <SearchBar />
       <SheetHeader />
 
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 max-w-[1400px] mx-auto">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
 
         {/* 01 Program Structure */}
         <Card title="Program Structure" num="01" color="cyan">
@@ -366,7 +368,7 @@ export default function Home() {
         </Card>
 
         {/* 15 Classes (wide) */}
-        <Card title="Classes (OOP Basics)" num="15" color="cyan" wide>
+        <Card title="Classes (OOP Basics)" num="15" color="cyan" size="md">
           <CodeBlock code={c15} />
         </Card>
 
@@ -381,7 +383,7 @@ export default function Home() {
         </Card>
 
         {/* 18 Common Mistakes (wide) */}
-        <Card title="Common Beginner Mistakes" num="18" color="red" wide>
+        <Card title="Common Beginner Mistakes" num="18" color="red" size="md">
           <InfoTable rows={[
             {
               key: "= vs ==",

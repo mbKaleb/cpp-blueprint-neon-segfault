@@ -19,7 +19,7 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "C++ Cheat Sheet",
+  title: "C++ Codex",
   description: "Quick reference for C++ beginners",
 };
 
@@ -34,9 +34,9 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bebasNeue.variable} antialiased`}
     >
       <body className="flex flex-col min-h-screen">
-        <main className="flex-1 px-4 py-6">{children}</main>
+        <main className="flex-1 px-4 py-6 max-w-[1400px] mx-auto w-full">{children}</main>
         <footer className="text-center py-7 text-[11px] tracking-[2px] uppercase text-muted">
-          C++17 · ISO Standard
+          C++17 · Advanced Reference
         </footer>
       </body>
     </html>

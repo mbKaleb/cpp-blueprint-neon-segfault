@@ -1,27 +1,11 @@
-import Link from "next/link";
-import ScrambleText from "@/components/ScrambleText";
 import Card from "@/components/sheet/Card";
 import CodeBlock from "@/components/sheet/CodeBlock";
 import InfoTable from "@/components/sheet/InfoTable";
 import Tip from "@/components/sheet/Tip";
-import SectionLabel from "@/components/sheet/SectionLabel";
+import { Prose, H3, P, OL, LI, Code, Note } from "@/components/sheet/Prose";
 
 // ── Code strings ───────────────────────────────────────────────────────────
 
-const c_phases = `\
-// 8 Phases of Translation (ISO C++23 §5.2)
-// 1. Character mapping (universal-character-names)
-// 2. Line splicing (backslash + newline → single logical line)
-// 3. Tokenization (produces preprocessing tokens)
-// 4. Preprocessing (#include, macros, #if/#endif)
-// 5. Character-set conversion (string / char literals)
-// 6. String literal concatenation  ("a" "b" → "ab")
-// 7. Translation (compilation proper → object file)
-// 8. Linking (resolves external references → executable)
-
-// Each .cpp file is ONE Translation Unit (TU).
-// Phase 4 pastes every #included header inline into the TU,
-// so the compiler never sees the header directly.`;
 
 const c_linkage = `\
 // ── External linkage — visible to ALL translation units ──
@@ -366,51 +350,38 @@ g++ -std=c++17 -O1 -g -fsanitize=address,undefined \\
 export default function ProgramStructurePage() {
   return (
     <>
-      {/* Back nav */}
-      <div className="max-w-[1400px] mx-auto">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[3px] uppercase text-muted hover:text-accent transition-colors mb-6"
-        >
-          ← Back to Cheat Sheet
-        </Link>
-      </div>
-
-      {/* Topic header */}
-      <div
-        className="text-center mb-8 px-5 py-8 bg-surface border border-border relative overflow-hidden max-w-[1400px] mx-auto"
-        style={{ borderTopColor: "var(--accent)", borderTopWidth: "3px" }}
-      >
-        <div className="absolute -top-[60px] -left-[60px] w-[200px] h-[200px] bg-[radial-gradient(circle,rgba(0,212,255,0.12)_0%,transparent_70%)] pointer-events-none" />
-        <div className="absolute -bottom-[60px] -right-[60px] w-[200px] h-[200px] bg-[radial-gradient(circle,rgba(168,85,247,0.12)_0%,transparent_70%)] pointer-events-none" />
-        <span className="inline-block mb-2 font-mono text-[10px] tracking-[3px] uppercase text-muted opacity-50">
-          Topic 01
-        </span>
-        <h1 className="font-heading text-[clamp(2rem,5vw,3.5rem)] tracking-[4px] text-accent leading-none [text-shadow:0_0_30px_rgba(0,212,255,0.4)]">
-          <ScrambleText text="Program Structure" />
-        </h1>
-        <p className="text-muted text-[13px] mt-2 tracking-[3px] uppercase font-light">
-          Translation Units · Linkage · ODR · C++17 Features
-        </p>
-        <span className="inline-block mt-3 px-3.5 py-1 border border-accent3 text-accent3 text-[11px] tracking-[2px] uppercase">
-          C++17 · Advanced Reference
-        </span>
-      </div>
-
       {/* Cards grid */}
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4 max-w-[1400px] mx-auto">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
 
         {/* 01 Translation Units & Phases */}
-        <Card title="Translation Units & Compilation Phases" num="01" color="cyan" wide>
-          <SectionLabel>8 Phases of Translation (ISO C++)</SectionLabel>
-          <CodeBlock code={c_phases} />
-          <Tip color="cyan">
-            <strong>Key insight:</strong> The compiler processes one TU at a time. Multiple <code>.cpp</code> files are compiled independently, then linked. Headers are not separately compiled — they are copy-pasted into each TU at phase 4.
-          </Tip>
+        <Card title="Translation Units & Compilation Phases" num="01" color="cyan" size="md">
+          <Prose>
+            <H3>What is a Translation Unit?</H3>
+            <P>
+              Each <Code>.cpp</Code> file is one <Code>Translation Unit (TU)</Code>. The compiler
+              processes TUs independently — it never sees two <Code>.cpp</Code> files at the same
+              time. Headers are not compiled separately; phase 4 pastes them inline into the TU.
+            </P>
+            <H3>8 Phases of Translation · ISO C++ §5.2</H3>
+            <OL>
+              <LI>Character mapping — universal-character-names (<Code>\uXXXX</Code>)</LI>
+              <LI>Line splicing — backslash + newline merges into one logical line</LI>
+              <LI>Tokenization — source text becomes preprocessing tokens</LI>
+              <LI><Code>#include</Code>, macros, <Code>#if</Code> / <Code>#endif</Code> — preprocessor runs</LI>
+              <LI>Character-set conversion — encoding of string and char literals resolved</LI>
+              <LI>String literal concatenation — <Code>"a" "b"</Code> → <Code>"ab"</Code></LI>
+              <LI>Translation — compilation proper, produces an object file</LI>
+              <LI>Linking — external references resolved, executable produced</LI>
+            </OL>
+            <Note>
+              The compiler never sees a header file directly — only the TU after phase 4 has
+              inlined it. This is why redefining a symbol in a header breaks multiple TUs.
+            </Note>
+          </Prose>
         </Card>
 
         {/* 02 Linkage */}
-        <Card title="Linkage: External · Internal · None" num="02" color="orange" wide>
+        <Card title="Linkage: External · Internal · None" num="02" color="orange" size="md">
           <CodeBlock code={c_linkage} />
           <InfoTable rows={[
             { key: "External", value: "Default for free functions and global vars — visible to all TUs" },
@@ -436,7 +407,7 @@ export default function ProgramStructurePage() {
         </Card>
 
         {/* 05 Namespaces */}
-        <Card title="Namespaces" num="05" color="cyan" wide>
+        <Card title="Namespaces" num="05" color="cyan" size="md">
           <CodeBlock code={c_namespaces} />
           <InfoTable rows={[
             { key: "namespace A::B::C", value: "C++17 shorthand for triply-nested namespaces" },
@@ -464,7 +435,7 @@ export default function ProgramStructurePage() {
         </Card>
 
         {/* 08 Attributes */}
-        <Card title="C++17 Attributes" num="08" color="yellow" wide>
+        <Card title="C++17 Attributes" num="08" color="yellow" size="md">
           <CodeBlock code={c_attributes} />
           <InfoTable rows={[
             { key: "[[nodiscard]]",     value: "Warn when caller discards the return value. Apply to error codes, resource handles, expensive computations." },
@@ -491,7 +462,7 @@ export default function ProgramStructurePage() {
         </Card>
 
         {/* 11 const vs constexpr */}
-        <Card title="const vs constexpr" num="11" color="cyan" wide>
+        <Card title="const vs constexpr" num="11" color="cyan" size="md">
           <CodeBlock code={c_constexpr} />
           <InfoTable rows={[
             { key: "const",       value: "Value won't change after init. May be runtime (e.g. const int n = argc). Address can be taken." },
@@ -510,7 +481,7 @@ export default function ProgramStructurePage() {
         </Card>
 
         {/* 13 Compiler Flags */}
-        <Card title="Compiler Flags & Sanitizers" num="13" color="orange" wide>
+        <Card title="Compiler Flags & Sanitizers" num="13" color="orange" size="md">
           <CodeBlock code={c_flags} />
           <Tip color="orange">
             <strong>Sanitizer overhead:</strong> AddressSanitizer adds ~2× runtime overhead; UBSanitizer adds ~1.5×. Use in CI and during development. Never ship with sanitizers enabled — they require the sanitizer runtime to be present.

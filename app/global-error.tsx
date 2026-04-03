@@ -16,7 +16,7 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        {retrying && <LoadingIndicator onRetry={unstable_retry} />}
+        {retrying && <LoadingIndicator isLoading={retrying} onRetry={unstable_retry} />}
         <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
           <p className="text-muted text-[11px] tracking-[4px] uppercase mb-4">
             Error
