@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SearchBar from "@/components/SearchBar";
 import Card from "@/components/sheet/Card";
 import CodeBlock from "@/components/sheet/CodeBlock";
 import InfoTable from "@/components/sheet/InfoTable";
@@ -253,8 +252,7 @@ delete[] arr;   // use delete[]`;
 export default function Home() {
   return (
     <>
-      <SearchBar />
-      <SheetHeader />
+<SheetHeader />
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
 
