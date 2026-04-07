@@ -354,7 +354,7 @@ export default function ProgramStructurePage() {
       <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-4">
 
         {/* 01 Translation Units & Phases */}
-        <Card title="Translation Units & Compilation Phases" num="01" color="cyan" size="md">
+        <Card title="Translation Units & Compilation Phases" num="01" color="cyan" size="lg">
           <Prose>
             <H3>What is a Translation Unit?</H3>
             <P>
