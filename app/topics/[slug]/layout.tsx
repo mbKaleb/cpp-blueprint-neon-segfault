@@ -19,9 +19,9 @@ export default async function TopicLayout({
     <>
       <Link
         href="/"
-        className="absolute top-6 left-4 h-[34px] inline-flex items-center gap-2 font-mono text-[11px] tracking-[3px] uppercase text-muted hover:text-accent transition-colors"
+        className="absolute top-6 left-12 h-[34px] inline-flex items-center gap-2 font-mono text-[11px] tracking-[3px] uppercase text-muted hover:text-accent transition-colors"
       >
-        ← Back to Cheat Sheet
+        ← Back to Quick Reference
       </Link>
 
       <PageHeader
