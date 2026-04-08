@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   description: "Quick reference for C++ beginners",
   icons: {
     icon: "/favicon.svg",
+    apple: '/apple-icon.png',
   },
 };
 
