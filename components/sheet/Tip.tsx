@@ -1,6 +1,6 @@
 import React from "react";
 
-type TipColor = "cyan" | "orange" | "purple" | "green" | "red";
+type TipColor = "cyan" | "orange" | "purple" | "green" | "red" | "yellow";
 
 const borderClass: Record<TipColor, string> = {
   cyan: "border-accent",
@@ -8,6 +8,7 @@ const borderClass: Record<TipColor, string> = {
   purple: "border-accent3",
   green: "border-neon",
   red: "border-red-400",
+  yellow: "border-yellow-400"
 };
 
 interface TipProps {
