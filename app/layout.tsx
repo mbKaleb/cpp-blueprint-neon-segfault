@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "C++ Codex",
     description: "Quick reference for C++ beginners",
     type: "website",
-    images: [{ url: "/favicon.png", width: 512, height: 512 }],
+    images: [{ url: "/favicon.png", width: 300, height: 300 }],
   },
 };
 
