@@ -264,7 +264,7 @@ export default function Home() {
           </Tip>
           <Link
             href="/topics/program-structure"
-            className="flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
           >
             <span>Deep Dive — ODR · Linkage · C++17</span>
             <span>→</span>
@@ -283,6 +283,13 @@ export default function Home() {
             { key: "bool",      value: "true / false" },
             { key: "auto",      value: "Compiler infers the type" },
           ]} />
+          <Link
+            href="/topics/data-types"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Integers · Floats · Type Traits</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 03 Variables & Constants */}
