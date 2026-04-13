@@ -13,7 +13,7 @@ const c01 = `\
 #include <string>     // strings
 #include <vector>     // dynamic arrays
 
-using namespace std;   // optional convenience
+using namespace std;  // opt convenience
 
 int main() {
   // your code here
@@ -35,18 +35,18 @@ constexpr double G = 9.81;`;
 
 const c04 = `\
 // Output
-cout << "Hello";          // print
-cout << "Hi" << endl;     // newline
-cout << "Hi\\n";           // faster newline
+cout << "Hello";               // print
+cout << "Hi" << endl;        // newline
+cout << "Hi\\n";      // faster newline
 cout << "x = " << x << "\\n";
 
 // Input
 int n;
-cin >> n;                // read one value
-cin >> a >> b;           // read two values
+cin >> n;            // read one value
+cin >> a >> b;      // read two values
 
 string line;
-getline(cin, line);      // read whole line`;
+getline(cin, line);// read whole line`;
 
 const c05a = `\
 a + b   a - b   a * b   a / b   a % b
@@ -54,8 +54,8 @@ a++   a--   ++a   --a
 a += 5   a -= 2   a *= 3   a /= 2`;
 
 const c05b = `\
-==  !=  <  >  <=  >=          // comparison
-&&  ||  !                       // AND  OR  NOT`;
+==  !=  <  >  <=  >=    // comparison
+&&  ||  !             // AND  OR  NOT`;
 
 const c06 = `\
 if (x > 0) {
@@ -130,7 +130,7 @@ const c11 = `\
 vector<int> v = {1, 2, 3};
 v.push_back(4);      // add to end
 v.pop_back();        // remove last
-v.size();            // number of elements
+v.size();       // number of elements
 v.empty();           // is it empty?
 v.clear();           // remove all
 v[0];                // access element
@@ -140,19 +140,19 @@ const c12 = `\
 #include <string>
 
 string s = "Hello";
-s.length();          // 5
-s.size();            // same as length()
-s[0];                // 'H'
-s + " World";        // concatenate
-s.substr(1, 3);      // "ell" (pos, len)
-s.find("ll");        // index of "ll" → 2
-s.replace(0, 1, "J"); // "Jello"
-stoi("42");          // string → int
-to_string(42);       // int → string`;
+s.length(z);       // 5
+s.size();          // same as length()
+s[0];              // 'H'
+s + " World";      // concatenate
+s.substr(1, 3);    // "ell" (pos, len)
+s.find("ll");      // index of "ll" → 2
+s.replace(0, 1, "J");// "Jello"
+stoi("42");        // string → int
+to_string(42);     // int → string`;
 
 const c13a = `\
 int x = 10;
-int* ptr = &x;   // ptr holds address of x
+int* ptr = &x;   // ptr holds address
 *ptr;            // 10 (dereference)
 *ptr = 20;       // changes x to 20`;
 
@@ -201,7 +201,7 @@ const c16 = `\
 
 vector<int> v = {3, 1, 4, 1, 5};
 
-sort(v.begin(), v.end());    // ascending
+sort(v.begin(), v.end());  // ascending
 // v = {1,1,3,4,5}
 
 reverse(v.begin(), v.end());
@@ -209,7 +209,8 @@ reverse(v.begin(), v.end());
 min(3, 7);   max(3, 7);
 
 auto it = find(v.begin(), v.end(), 4);
-// it points to 4, or v.end() if not found`;
+// it points to 4, or 
+// v.end() if not found`;
 
 const c17 = `\
 #include <cmath>
@@ -295,11 +296,28 @@ export default function Home() {
         {/* 03 Variables & Constants */}
         <Card title="Variables & Constants" num="03" color="purple">
           <CodeBlock code={c03} />
+          <Tip color="purple">
+            <strong>Prefer <code>constexpr</code> over <code>const</code></strong> for compile-time values — it enables use as array sizes, template arguments, and case labels.
+          </Tip>
+          <Link
+            href="/topics/variables-constants"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Storage · Init · Scope · constexpr</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 04 Input / Output */}
         <Card title="Input / Output" num="04" color="green">
           <CodeBlock code={c04} />
+          <Link
+            href="/topics/input-output"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Streams · Files · Formatting · sstream</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 05 Operators */}
@@ -308,11 +326,31 @@ export default function Home() {
           <CodeBlock code={c05a} />
           <SectionLabel>Comparison &amp; Logical</SectionLabel>
           <CodeBlock code={c05b} />
+          <InfoTable rows={[
+            { key: "i++ vs ++i",  value: "Post-increment returns the old value; pre-increment returns the new one." },
+            { key: "5 / 2 == 2",  value: "Integer division truncates. Cast first: (double)5 / 2 → 2.5" },
+            { key: "&& / ||",     value: "Short-circuit — right side skipped if result is already known." },
+            { key: "precedence",  value: "* / % bind tighter than + −. Bitwise & | ^ are lower than == !=." },
+          ]} />
+          <Link
+            href="/topics/operators"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Precedence · Bitwise · Overloading</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 06 If / Else */}
         <Card title="If / Else" num="06" color="cyan">
           <CodeBlock code={c06} />
+          <Link
+            href="/topics/if-else"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Init if · constexpr if · optional</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 07 Switch */}
@@ -321,6 +359,13 @@ export default function Home() {
           <Tip color="orange">
             <strong>Note:</strong> Always use <code>break</code> to prevent fall-through to the next case.
           </Tip>
+          <Link
+            href="/topics/switch"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Fall-Through · Enums · Dispatch</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 08 Loops */}
@@ -331,11 +376,25 @@ export default function Home() {
           <CodeBlock code={c08b} />
           <SectionLabel>Range-based For (C++11)</SectionLabel>
           <CodeBlock code={c08c} />
+          <Link
+            href="/topics/loops"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Range-for · Algorithms · Performance</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 09 Functions */}
         <Card title="Functions" num="09" color="green">
           <CodeBlock code={c09} />
+          <Link
+            href="/topics/functions"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Passing · Lambdas · RVO · std::function</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 10 Arrays */}
@@ -347,16 +406,37 @@ export default function Home() {
           <Tip color="red">
             <strong>Warning:</strong> No bounds checking — accessing out-of-range is undefined behavior.
           </Tip>
+          <Link
+            href="/topics/arrays"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Decay · std::array · Pointer Arithmetic</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 11 Vector */}
         <Card title="Vector (Dynamic Array)" num="11" color="cyan">
           <CodeBlock code={c11} />
+          <Link
+            href="/topics/vectors"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Capacity · Iterators · Algorithms · Move</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 12 Strings */}
         <Card title="Strings" num="12" color="orange">
           <CodeBlock code={c12} />
+          <Link
+            href="/topics/strings"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — SSO · string_view · Format · Split</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 13 Pointers & References */}
@@ -365,26 +445,61 @@ export default function Home() {
           <CodeBlock code={c13a} />
           <SectionLabel>References (aliases)</SectionLabel>
           <CodeBlock code={c13b} />
+          <Link
+            href="/topics/pointers-references"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Smart Pointers · Ownership · UB · this</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 14 Structs */}
         <Card title="Structs" num="14" color="green">
           <CodeBlock code={c14} />
+          <Link
+            href="/topics/structs"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Layout · Padding · Special Members · POD</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 15 Classes (wide) */}
         <Card title="Classes (OOP Basics)" num="15" color="cyan" size="md">
           <CodeBlock code={c15} />
+          <Link
+            href="/topics/classes"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — RAII · Inheritance · Virtual · Access</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 16 Algorithms */}
         <Card title="Useful Algorithms" num="16" color="orange">
           <CodeBlock code={c16} />
+          <Link
+            href="/topics/algorithms"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Sorting · Searching · Numeric · Ranges</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 17 Math */}
         <Card title="Math Functions" num="17" color="yellow">
           <CodeBlock code={c17} />
+          <Link
+            href="/topics/math"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Trig · Random · Limits · C++20 Constants</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 18 Common Mistakes (wide) */}
@@ -415,12 +530,26 @@ export default function Home() {
               value: <><code>\n</code> is faster — <code>endl</code> flushes the buffer every call.</>,
             },
           ]} />
+          <Link
+            href="/topics/common-mistakes"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — UB · Memory · Type System · Tools</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 19 Compile & Run */}
         <Card title="Compile & Run" num="19" color="green">
           <SectionLabel>g++ (most common)</SectionLabel>
           <CodeBlock code={c19} />
+          <Link
+            href="/topics/compile-run"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — Flags · Sanitizers · CMake · Debugging</span>
+            <span>→</span>
+          </Link>
         </Card>
 
         {/* 20 Dynamic Memory */}
@@ -429,6 +558,13 @@ export default function Home() {
           <Tip color="purple">
             <strong>Prefer</strong> <code>vector</code> or smart pointers (<code>unique_ptr</code>) over raw <code>new/delete</code> to avoid memory leaks.
           </Tip>
+          <Link
+            href="/topics/dynamic-memory"
+            className="mt-auto flex items-center justify-between px-3.5 py-2.5 font-mono text-[11px] tracking-[2px] uppercase text-accent hover:bg-white/[.04] transition-colors border-t border-border"
+          >
+            <span>Deep Dive — unique_ptr · shared_ptr · weak_ptr · Pools</span>
+            <span>→</span>
+          </Link>
         </Card>
 
       </div>

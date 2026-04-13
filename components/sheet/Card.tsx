@@ -27,7 +27,7 @@ interface CardProps {
 
 export default function Card({ title, num, color, size = "sm", children }: CardProps) {
   return (
-    <div className={`flex flex-col bg-card border border-border overflow-hidden ${sizeClass[size]}`}>
+    <div className={`flex flex-col bg-card border border-border ${sizeClass[size]}`}>
       <div className="flex items-center gap-2.5 px-3.5 py-[11px] border-b border-border bg-white/[.02]">
         <span className={`w-2 h-2 rounded-full shrink-0 ${dotColorClass[color]}`} />
         <h2 className="font-heading text-[15px] tracking-[2px] text-foreground">{title}</h2>

@@ -128,19 +128,27 @@ const tokenClass: Record<TokenType, string> = {
 
 // ── Component ─────────────────────────────────────────────────────────────
 
-export default function CodeBlock({ code }: { code: string }) {
+export default function CodeBlock({ code, clip }: { code: string; clip?: boolean }) {
   const tokens = tokenize(code);
   return (
-    <pre className="bg-code-bg px-4 py-3.5 overflow-x-auto font-mono text-[12px] leading-[1.7] border-b border-border last:border-b-0">
-      {tokens.map((token, i) =>
-        token.type === "plain" ? (
-          token.value
-        ) : (
-          <span key={i} className={tokenClass[token.type]}>
-            {token.value}
-          </span>
-        )
-      )}
-    </pre>
+    <>
+      <style>{`
+        .cb-pre::-webkit-scrollbar { height: 5px; background: var(--code-bg); }
+        .cb-pre::-webkit-scrollbar-track { background: var(--code-bg); }
+        .cb-pre::-webkit-scrollbar-thumb { background: rgba(0,212,255,.25); border-radius: 9999px; }
+        .cb-pre::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+      `}</style>
+      <pre className={`cb-pre bg-code-bg pl-4 pr-1 py-3.5 ${clip ? "overflow-x-clip" : "overflow-x-auto"} overflow-y-clip font-mono text-[12px] leading-[1.7] border-b border-border last:border-b-0`}>
+        {tokens.map((token, i) =>
+          token.type === "plain" ? (
+            token.value
+          ) : (
+            <span key={i} className={tokenClass[token.type]}>
+              {token.value}
+            </span>
+          )
+        )}
+      </pre>
+    </>
   );
 }
