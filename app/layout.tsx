@@ -23,6 +23,9 @@ const bebasNeue = Bebas_Neue({
 export const metadata: Metadata = {
   title: "C++ Codex",
   description: "Quick reference for C++ beginners",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
