@@ -3,6 +3,7 @@ import { Space_Grotesk, JetBrains_Mono, Bebas_Neue } from "next/font/google";
 import SearchBar from "@/components/SearchBar";
 import ReaderModeModal from "@/components/ReaderModeModal";
 import "./globals.css";
+import "./icon.svg"
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -39,6 +40,9 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bebasNeue.variable} antialiased`}
     >
+      <head>
+        <link rel="icon" href="./icon.svg" />
+      </head>
       <body className="flex flex-col min-h-screen">
         {/* <ReaderModeModal /> */}
         <main className="relative flex-1 px-4 py-6 max-w-[1400px] mx-auto w-full">
