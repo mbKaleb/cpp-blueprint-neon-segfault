@@ -3,7 +3,6 @@ import { Space_Grotesk, JetBrains_Mono, Bebas_Neue } from "next/font/google";
 import SearchBar from "@/components/SearchBar";
 import ReaderModeModal from "@/components/ReaderModeModal";
 import "./globals.css";
-import "./icon.svg"
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -26,7 +25,12 @@ export const metadata: Metadata = {
   description: "Quick reference for C++ beginners",
   icons: {
     icon: "/favicon.svg",
-    apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: "C++ Codex",
+    description: "Quick reference for C++ beginners",
+    type: "website",
+    images: [{ url: "/favicon.png", width: 512, height: 512 }],
   },
 };
 
@@ -41,7 +45,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${bebasNeue.variable} antialiased`}
     >
       <head>
-        <link rel="icon" href="./icon.svg" />
+        <link rel="icon" href="/favicon.svg" />
       </head>
       <body className="flex flex-col min-h-screen">
         {/* <ReaderModeModal /> */}
